@@ -5,6 +5,11 @@ import com.shinkson47.opex.frontend.fxml.FXMLMain;
 import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  *
@@ -56,4 +61,7 @@ public class FramesDemo extends FXMLMain<FramesController> {
     public static void main(String[] args) {
         launch();
     }
+
+
+
 }

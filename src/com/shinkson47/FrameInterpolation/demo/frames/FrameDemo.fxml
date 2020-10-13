@@ -30,26 +30,26 @@
                <children>
                   <Slider fx:id="sld_pos" blockIncrement="1000.0" layoutY="56.0" majorTickUnit="1.0" max="1.0" minorTickCount="1000" onMouseDragged="#autoTriggerInter" prefHeight="16.0" prefWidth="580.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
                   <Label layoutX="7.0" layoutY="25.0" text="Demonstration Interpolation Value" />
-                  <Pane layoutX="565.0" layoutY="205.0" prefHeight="219.0" prefWidth="517.0" style="-fx-border-color: lightgrey;">
+                  <Pane layoutX="565.0" layoutY="205.0" prefHeight="290.0" prefWidth="419.0" style="-fx-border-color: lightgrey;">
                      <children>
-                        <Label layoutX="23.0" layoutY="93.0" text="Time per Inter Frame (ns):" />
-                        <Label fx:id="lblTime" layoutX="208.0" layoutY="93.0" text="0" />
-                        <Label layoutX="23.0" layoutY="76.0" text="Average time per px (ns):" />
-                        <Label fx:id="lblAverage" layoutX="208.0" layoutY="76.0" text="0" />
-                        <Label layoutX="26.0" layoutY="165.0" prefHeight="17.0" prefWidth="176.0" text="Est. time per min (30fps):" />
-                        <Label fx:id="lblEstimated" layoutX="211.0" layoutY="165.0" text="0" />
+                        <Label layoutX="26.0" layoutY="110.0" text="Time per Inter Frame (ns):" />
+                        <Label fx:id="lblTime" layoutX="208.0" layoutY="110.0" text="0" />
+                        <Label layoutX="26.0" layoutY="93.0" text="Average time per px (ns):" />
+                        <Label fx:id="lblAverage" layoutX="208.0" layoutY="93.0" text="0" />
+                        <Label layoutX="22.0" layoutY="232.0" prefHeight="17.0" prefWidth="176.0" text="Est. time per min (30fps):" />
+                        <Label fx:id="lblEstimated" layoutX="207.0" layoutY="232.0" text="0" />
                         <Label layoutX="23.0" layoutY="37.0" text="Times below are not 100% accurate; they include API call time" textFill="#868686" />
                         <Label layoutX="23.0" layoutY="14.0" text="Calculation Time Information">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
                         </Label>
-                        <Label layoutX="26.0" layoutY="182.0" prefHeight="17.0" prefWidth="176.0" text="Faster than real-time?" />
-                        <Label fx:id="lblRT" layoutX="211.0" layoutY="182.0" text="0" />
-                        <Label layoutX="22.0" layoutY="110.0" text="Frames in buffer:" />
-                        <Label fx:id="lblBufferSize" layoutX="208.0" layoutY="110.0" text="0" />
-                        <Label layoutX="22.0" layoutY="127.0" text="Est. Total Processing Time:" />
-                        <Label fx:id="lblEstTotal" layoutX="208.0" layoutY="127.0" text="0" />
+                        <Label layoutX="22.0" layoutY="249.0" prefHeight="17.0" prefWidth="176.0" text="Faster than real-time?" />
+                        <Label fx:id="lblRT" layoutX="207.0" layoutY="249.0" text="0" />
+                        <Label layoutX="22.0" layoutY="164.0" text="Frames in buffer:" />
+                        <Label fx:id="lblBufferSize" layoutX="208.0" layoutY="164.0" text="0" />
+                        <Label layoutX="22.0" layoutY="181.0" text="Est. Total Processing Time:" />
+                        <Label fx:id="lblEstTotal" layoutX="208.0" layoutY="181.0" text="0" />
                      </children>
                   </Pane>
                   <Slider fx:id="sld_seek" blockIncrement="1000.0" layoutY="111.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseDragged="#updatePrePost" onMouseReleased="#autoTriggerInter" prefHeight="16.0" prefWidth="1906.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="111.0" />
@@ -65,6 +65,17 @@
                         <Slider fx:id="sld_fps" blockIncrement="1000.0" layoutX="16.0" layoutY="103.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="16.0" prefWidth="490.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
                         <Label layoutX="22.0" layoutY="69.0" prefHeight="17.0" prefWidth="474.0" text="Inter-Frame Count (fps*inter = output fps)" />
                         <Label layoutX="23.0" layoutY="38.0" text="Time to rev up those frames" textFill="#868686" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="24.0" layoutY="403.0" prefHeight="92.0" prefWidth="517.0" style="-fx-border-color: lightgrey;">
+                     <children>
+                        <Label layoutX="23.0" layoutY="14.0" text="Export">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#exportAll" prefHeight="27.0" prefWidth="490.0" text="Export" />
+                        <Label layoutX="23.0" layoutY="38.0" text="Share them with nobody because you have no mates" textFill="#868686" />
                      </children>
                   </Pane>
                </children>

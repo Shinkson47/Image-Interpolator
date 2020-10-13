@@ -2,8 +2,10 @@ package com.shinkson47.FrameInterpolation.demo.frames;
 
 import com.shinkson47.FrameInterpolation.FrameBuffer;
 import com.shinkson47.FrameInterpolation.LinearImageInterpolator;
+import com.shinkson47.opex.backend.runtime.errormanagement.EMSHelper;
 import com.shinkson47.opex.frontend.fxml.FXMLController;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,7 +14,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * GUI controller for the Frame generation Prototype
@@ -142,5 +147,43 @@ public class FramesController extends FXMLController {
      */
     public void autoTriggerInter() {
         calculateInter();
+    }
+
+    public void exportAll(ActionEvent actionEvent) {
+        BufferedImage[] images = new BufferedImage[frameBuffer.getBufferLength()];
+        frameBuffer.getFrameBuffer().toArray(images);
+        try {
+            writeOutAll(images);
+        } catch (IOException e) {
+            EMSHelper.handleException(e);
+            new Alert(null, "Could not export! " + e.getMessage()).showAndWait();
+        }
+    }
+
+    public static void writeOutAll(BufferedImage[] images) throws IOException {
+        for (int i = 0; i <= images.length - 1; i++)
+            writeOut(images[i], String.valueOf(i));
+    }
+
+    public static void writeOut(BufferedImage image, String name) throws IOException {
+        assertExportLocation();
+        ImageIO.write(image, "png", new File(exportFolder.getAbsolutePath() + "/" + exportFolder.getName() + "_" + name + ".png"));
+    }
+
+    private static File exportFolder;
+    public static boolean assertExportLocation(){
+        if (exportFolder != null) return false;
+        new Alert(Alert.AlertType.INFORMATION, "Select an empty to export to.").showAndWait();
+        exportFolder = new File(FramesDemo.chooser.showDialog(null).getAbsolutePath());
+        if(!exportFolder.exists())
+            exportFolder.mkdirs();
+
+        if (!exportFolder.isDirectory() |
+                exportFolder.listFiles().length != 0){
+            exportFolder = null;
+            return false;
+        }
+
+        return true;
     }
 }
