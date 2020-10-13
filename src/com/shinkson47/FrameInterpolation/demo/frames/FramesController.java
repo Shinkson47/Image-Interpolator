@@ -7,12 +7,10 @@ import com.shinkson47.opex.frontend.fxml.FXMLController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -46,11 +44,16 @@ public class FramesController extends FXMLController {
     public Label lblEstTotal;
     public Slider sld_fps;
     public Slider sld_seek;
+    public CheckBox chkPlayback;
+    public Slider sldPlaybackFPS;
+    public Label lblPlaybackFPS;
     //#endregion FXML
 
     private Image pre;
     private Image post;
-    private com.shinkson47.FrameInterpolation.FrameBuffer frameBuffer;
+    private FrameBuffer frameBuffer;
+    private PlaybackThread playbackController;
+    private Thread playbackThread;
 
     public FramesController() {
         super(SLIDER_FXML);
@@ -65,10 +68,14 @@ public class FramesController extends FXMLController {
         autoTriggerInter();
     }
 
-    @javafx.fxml.FXML
+    @FXML
     private void updatePrePost() {
         setPreImage(frameBuffer.getFrame((int) sld_seek.getValue()));
-        setPostImage(frameBuffer.getFrame((int) (sld_seek.getValue() + 1)));
+
+        try {
+            setPostImage(frameBuffer.getFrame(
+                    (int) ((playbackController != null && playbackController.isRunning()) ? sld_seek.getValue() * (sld_fps.getValue() + 1) : sld_seek.getValue() + 1)));
+        } catch (IndexOutOfBoundsException ignored) {}
     }
 
     /**
@@ -185,5 +192,48 @@ public class FramesController extends FXMLController {
         }
 
         return true;
+    }
+
+
+
+    public synchronized void stepFrame() {
+        if(sld_seek.getValue() >= frameBuffer.getBufferLength() - 2) {
+            stopPlayback();
+            return;
+        }
+        sld_seek.setValue(sld_seek.getValue() + 1);
+        updatePrePost();
+    }
+
+    public void updatePlaybackFPS() {
+        assertPlaybackController();
+        playbackController.setFPS((int) sldPlaybackFPS.getValue());
+        lblPlaybackFPS.setText(String.valueOf(sldPlaybackFPS.getValue()));
+    }
+
+
+    public void updatePlaybackCheck() {
+        assertPlaybackController();
+        if(chkPlayback.isSelected())
+            startPlayback();
+        else
+            stopPlayback();
+    }
+
+    private void startPlayback() {
+        playbackThread = new Thread(playbackController);
+        playbackThread.start();
+    }
+
+    private void stopPlayback() {
+        chkPlayback.setSelected(false);
+        playbackController.stopPlayback();
+        playbackController = null;
+
+    }
+
+    private void assertPlaybackController() {
+        if (playbackController == null)
+            playbackController = new PlaybackThread((int) sldPlaybackFPS.getValue(), this);
     }
 }

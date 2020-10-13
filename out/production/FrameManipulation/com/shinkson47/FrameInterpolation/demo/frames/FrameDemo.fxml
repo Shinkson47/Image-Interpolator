@@ -21,9 +21,12 @@
                   <ImageView fx:id="img_inter2" fitHeight="500.0" fitWidth="500.0" layoutX="214.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1500.0" AnchorPane.topAnchor="0.0" />
                   <Label layoutX="-7.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol = 0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="520.0" />
                   <Label layoutX="500.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.25" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="520.0" />
-                  <Label layoutX="1000.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.5" AnchorPane.leftAnchor="1000.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutX="1000.0" layoutY="511.0" prefHeight="17.0" prefWidth="82.0" text="Interpol * 0.5" AnchorPane.leftAnchor="1000.0" AnchorPane.topAnchor="520.0" />
                   <Label layoutX="1500.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.75" AnchorPane.leftAnchor="1500.0" AnchorPane.topAnchor="520.0" />
                   <Label layoutX="1636.0" layoutY="511.0" prefHeight="17.0" prefWidth="81.0" text="Interpol = 1" AnchorPane.leftAnchor="2000.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutY="567.0" prefHeight="17.0" prefWidth="225.0" text="(During Playback, Shows all frames)" />
+                  <Label layoutX="1863.0" layoutY="567.0" prefHeight="17.0" prefWidth="234.0" text="(During Playback, shows Key Frames)" />
+                  <Label layoutX="925.0" layoutY="567.0" prefHeight="17.0" prefWidth="315.0" text="(Interframe displays are inactive during playback.)" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -76,6 +79,19 @@
                         </Label>
                         <Button layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#exportAll" prefHeight="27.0" prefWidth="490.0" text="Export" />
                         <Label layoutX="23.0" layoutY="38.0" text="Share them with nobody because you have no mates" textFill="#868686" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="991.0" layoutY="205.0" prefHeight="147.0" prefWidth="517.0" style="-fx-border-color: lightgrey;">
+                     <children>
+                        <Label layoutX="23.0" layoutY="14.0" text="Playback">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sldPlaybackFPS" blockIncrement="1000.0" layoutX="14.0" layoutY="74.0" majorTickUnit="1.0" max="120.0" min="1.0" minorTickCount="0" onMouseReleased="#updatePlaybackFPS" prefHeight="16.0" prefWidth="490.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="60.0" />
+                        <Label layoutX="22.0" layoutY="45.0" prefHeight="17.0" prefWidth="104.0" text="Playback FPS" />
+                        <CheckBox fx:id="chkPlayback" layoutX="23.0" layoutY="115.0" mnemonicParsing="false" onAction="#updatePlaybackCheck" text="Playback" />
+                        <Label fx:id="lblPlaybackFPS" layoutX="460.0" layoutY="45.0" prefHeight="17.0" prefWidth="36.0" text="60" />
                      </children>
                   </Pane>
                </children>
