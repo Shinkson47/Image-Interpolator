@@ -177,11 +177,11 @@ public final class LinearImageInterpolator {
     public static BufferedImage[] forAll(FrameBuffer frameBuffer, int exponent) {
         BufferedImage[] InputBuffer = new BufferedImage[frameBuffer.getBufferLength()];
         frameBuffer.getFrameBuffer().toArray(InputBuffer);
-        BufferedImage[] OutputBuffer = new BufferedImage[frameBuffer.getBufferLength() * exponent];
+        BufferedImage[] OutputBuffer = new BufferedImage[(frameBuffer.getBufferLength() * (exponent + 1)) + exponent + 1];
 
         for(int currentFrame = 1; currentFrame <= InputBuffer.length - 1; currentFrame++){
             for (int currentFrameInter = 0; currentFrameInter <= exponent; currentFrameInter++)
-                OutputBuffer[(currentFrame * exponent) + currentFrameInter] = InterpolateImage(InputBuffer[currentFrame-1], InputBuffer[currentFrame], currentFrameInter / exponent);
+                OutputBuffer[(currentFrame * (exponent + 1)) + currentFrameInter] = InterpolateImage(InputBuffer[currentFrame-1], InputBuffer[currentFrame], (double) currentFrameInter / (double) exponent);
         }
 
         return OutputBuffer;
