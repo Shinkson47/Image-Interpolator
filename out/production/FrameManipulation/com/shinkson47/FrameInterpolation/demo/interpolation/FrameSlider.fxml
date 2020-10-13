@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="1283.0" prefWidth="2135.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shinkson47.FrameInterpolation.demo.interpolation.InterpolationController">
+   <children>
+      <SplitPane dividerPositions="0.5" layoutX="233.0" layoutY="112.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <ImageView fx:id="img_pre" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="img_inter" fitHeight="500.0" fitWidth="500.0" layoutX="204.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1000.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="img_post" fitHeight="500.0" fitWidth="500.0" layoutX="394.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2000.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="img_inter1" fitHeight="500.0" fitWidth="500.0" layoutX="214.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="img_inter2" fitHeight="500.0" fitWidth="500.0" layoutX="214.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1500.0" AnchorPane.topAnchor="0.0" />
+                  <Label layoutX="-7.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol = 0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutX="500.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.25" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutX="1000.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.5" AnchorPane.leftAnchor="1000.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutX="1500.0" layoutY="511.0" prefHeight="17.0" prefWidth="176.0" text="Interpol * 0.75" AnchorPane.leftAnchor="1500.0" AnchorPane.topAnchor="520.0" />
+                  <Label layoutX="1636.0" layoutY="511.0" prefHeight="17.0" prefWidth="81.0" text="Interpol = 1" AnchorPane.leftAnchor="2000.0" AnchorPane.topAnchor="520.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Slider fx:id="sld_pos" blockIncrement="1000.0" layoutY="56.0" majorTickUnit="1.0" max="1.0" minorTickCount="1000" onMouseDragged="#autoTriggerInter" prefHeight="16.0" prefWidth="580.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
+                  <Button fx:id="btn_prc" layoutY="146.0" mnemonicParsing="false" onAction="#btn_press" prefHeight="27.0" prefWidth="585.0" text="Process" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <CheckBox fx:id="chkTri" layoutX="14.0" layoutY="572.0" mnemonicParsing="false" selected="true" text="Calculate three inerpols at once. (Eq. to calculating 3x the frame rate i.e 120fps from 30fps)" AnchorPane.bottomAnchor="46.0" />
+                  <Label layoutX="14.0" layoutY="25.0" text="Interpol Value" />
+                  <Pane layoutX="14.0" layoutY="98.0" prefHeight="188.0" prefWidth="517.0" style="-fx-border-color: lightgrey;">
+                     <children>
+                        <Label layoutX="23.0" layoutY="92.0" text="Inter calculation time (ns):" />
+                        <Label fx:id="lblTime" layoutX="208.0" layoutY="93.0" text="0" />
+                        <Label layoutX="23.0" layoutY="110.0" text="Average time per px (ns):" />
+                        <Label fx:id="lblAverage" layoutX="208.0" layoutY="110.0" text="0" />
+                        <Label layoutX="23.0" layoutY="140.0" prefHeight="17.0" prefWidth="176.0" text="Est. time per min (30fps):" />
+                        <Label fx:id="lblEstimated" layoutX="208.0" layoutY="140.0" text="0" />
+                        <Label layoutX="23.0" layoutY="37.0" text="Times below are not 100% accurate; they include API call time" textFill="#868686" />
+                        <Label layoutX="23.0" layoutY="14.0" text="Calculation Time Information">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="23.0" layoutY="157.0" prefHeight="17.0" prefWidth="176.0" text="Faster than real-time?" />
+                        <Label fx:id="lblRT" layoutX="208.0" layoutY="157.0" text="0" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
